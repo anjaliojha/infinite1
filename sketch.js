@@ -5,9 +5,9 @@ var bg_img, bg;
 var invisibleGround
 var score = 0;
 function preload(){
-	bg_img = loadImage("background techno.jpg");
+	bg_img = loadImage("backgroundtechno.jpg");
 	robot_img = loadAnimation("robot-run.gif");
-	//ufo_img = loadAnimation("ufo.gif");
+	ufo_img = loadAnimation("ufo.gif");
 }
 
 function setup(){
@@ -21,7 +21,7 @@ function setup(){
 	robot.scale = 0.5;
 
 	bg = createSprite(displayWidth, displayHeight);
-	bg = addAnimation("background", bg_img);
+	bg.addAnimation("background", bg_img);
 
 	invisibleGround = createSprite(200,190,400,10);
   	invisibleGround.visible = false;
@@ -33,8 +33,8 @@ function setup(){
 function draw(){
 
 
-	camera.position.x = displayWidth/2;
-    camera.position.y = cars[index-1].y
+	//camera.position.x = displayWidth/2;
+    //camera.position.y = cars[index-1].y
 
 	text("Score:  "+score, 300,100);
 	if(keyDown("space")&&robot.y>100) {
@@ -50,17 +50,21 @@ function draw(){
 		score = score + 1;
 	  }
 
-	  if(robot.x - ufo.x > 1){
+	  if(robot.x - ufoGroup.x > 1){
 		  score = score - 10;
 	  }
+	}
+
 	  function spawnUFOs() {
+
 		if (frameCount % 100 === 0) {
-		  var ufo = createSprite(600,120,40,10);
-		  ufo.y = Math.round(random(80,120));
-		  ufo.addAnimation("ufo",ufo_image);
-		 ufo.scale = 0.5;
-		  ufo.velocityX = 0;
-		 ufo.lifetime = 200;
-		}
+		   ufo = createSprite(600,120,40,10);
+		  	ufo.y = Math.round(random(80,120));
+		  	ufo.addAnimation("ufo",ufo_img);
+		 	ufo.scale = 0.5;
+		  	ufo.velocityX = 0;
+		 	ufo.lifetime = 200;
+			ufoGroup.add(ufo);
 		}
 	}
+	
